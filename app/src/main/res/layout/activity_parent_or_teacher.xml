@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity = "center_horizontal"
+    android:background="#DCF6BD"
+    android:padding="50dp"
+    android:orientation="vertical"
+    tools:context=".Activitys.ParentOrTeacherActivity">
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/or_BTN_Parent"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Parent"
+        android:textSize="20dp"
+
+        app:strokeColor="@color/white"
+        android:layout_margin="30dp"
+        android:textStyle="bold"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/or_BTN_Teacher"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Teacher"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_margin="30dp"
+        app:strokeColor="@color/white" />
+
+
+</LinearLayout>

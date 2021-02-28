@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    app:cardCornerRadius="20dp"
+    android:elevation="5dp"
+    app:cardElevation="5dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        tools:context=".MainActivity">
+
+
+        <TextView
+            android:id="@+id/post_LBL_Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name: "
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/post_LBL_experience"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/post_LBL_Name"
+            android:layout_marginTop="4dp"
+            android:text="Years of experience: "
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/post_LBL_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/post_LBL_experience"
+            android:layout_marginTop="4dp"
+            android:text="Age: "
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+
+            <ImageView
+                android:id="@+id/post_IMG_image"
+                android:layout_width="350dp"
+                android:layout_height="200dp"
+                android:layout_below="@id/post_LBL_age"
+                android:layout_marginTop="4dp"
+                android:adjustViewBounds="true"
+                android:background="#EFA1F4" />
+
+
+
+
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

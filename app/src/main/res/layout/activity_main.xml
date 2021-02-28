@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/main_IMG_backround"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity = "center_horizontal"
+    android:orientation="vertical"
+    tools:context=".Activitys.MainActivity">
+
+    <Button
+        android:id="@+id/main_BTM_login_LogOut"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="login/LogOut"
+        android:textColor="@color/black"
+
+        android:layout_margin="30dp" />
+
+    <Button
+        android:id="@+id/main_BTM_Kindergarten"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="add new Kindergarten"
+        android:textColor="@color/black"
+        android:layout_margin="30dp" />
+
+
+    <Button
+        android:id="@+id/main_BTM_Map"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Map"
+        android:textColor="@color/black"
+        android:layout_margin="30dp"/>
+
+    <Button
+        android:id="@+id/main_BTM_Messages"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Messages"
+        android:textColor="@color/black"
+        android:layout_margin="30dp"/>
+
+
+</LinearLayout>
+    </RelativeLayout>

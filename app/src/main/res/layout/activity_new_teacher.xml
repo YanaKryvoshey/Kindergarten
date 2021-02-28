@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="40dp"
+    android:gravity="center_horizontal"
+    tools:context=".Activitys.NewTeacherActivity">
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <ImageView
+
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:src="@drawable/toys" />
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:hint="Name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addTeacher_EDT_name"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:ems="10" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:src="@drawable/phone_call" />
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:hint="Years of experience"
+
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addTeacher_EDT_experience"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:inputType="phone"
+                android:ems="10" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:src="@drawable/teacher" />
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:hint="Age">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addTeacher_EDT_age"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:inputType="number"
+                android:ems="10" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+
+            <Spinner
+                android:id="@+id/Teacher_SPN_Garden"
+                android:layout_width="190dp"
+                android:layout_height="60dp"
+                android:spinnerMode="dropdown"
+                android:prompt = "@string/app_name"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        >
+    <!--Button for choosing image from gallery-->
+    <Button
+        android:id="@+id/btnChoose"
+        android:text="Choose"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+         />
+
+    <!--Button for uploading image-->
+    <Button
+        android:id="@+id/btnUpload"
+        android:text="Upload"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+    />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="250dp"
+        android:layout_height="150dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addTeacher_BTN_continue"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="center_horizontal"
+        android:text="continue"
+        app:cornerRadius="50dp"
+        android:textColor="#CF06F1"
+        app:strokeColor="#CF06F1" />
+
+</LinearLayout>

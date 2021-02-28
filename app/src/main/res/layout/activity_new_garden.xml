@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="40dp"
+    android:gravity="center_horizontal"
+    tools:context=".Activitys.NewGardenActivity">
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="60dp">
+
+        <ImageView
+
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:src="@drawable/toys" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/garden_EDT_Layoutname"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:hint="Name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/garden_EDT_name"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:ems="10">
+
+            </com.google.android.material.textfield.TextInputEditText>
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:src="@drawable/phone_call" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/garden_EDT_LayoutPhone"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:hint="Phone"
+
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/garden_EDT_Phone"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:ems="10"
+                android:inputType="phone">
+
+            </com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:src="@drawable/teacher" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/garden_EDT_LayoutTeachers"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+
+            android:hint="Number of Teachers">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/garden_EDT_Teachers"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:ems="10"
+                android:inputType="number">
+
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:src="@drawable/children" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/garden_EDT_LayoutMax"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:hint="Max children">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/garden_EDT_Max"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:ems="10"
+                android:inputType="number">
+
+            </com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:src="@drawable/baby_boy" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/garden_EDT_LayoutChildren"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:hint="Number of children">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/garden_EDT_Children"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:ems="10"
+                android:inputType="number">
+
+            </com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        >
+
+        <!--Button for choosing image from gallery-->
+        <Button
+            android:id="@+id/garden_BTN_Choose"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:text="Choose" />
+        <!--Button for uploading image-->
+        <Button
+            android:id="@+id/garden_BTN_Upload"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:text="Upload" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/garden_imgView"
+        android:layout_width="250dp"
+        android:layout_height="150dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/garden_BTN_continue"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="center_horizontal"
+        android:text="continue"
+        android:textColor="#CF06F1"
+        app:cornerRadius="50dp"
+        app:strokeColor="#CF06F1" />
+
+
+</LinearLayout>

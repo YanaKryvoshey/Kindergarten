@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activitys.NewChildActivity"
+    android:orientation="vertical"
+    android:padding="40dp"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <ImageView
+
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:src="@drawable/toys" />
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="190dp"
+            android:layout_height="60dp"
+            android:hint="Child Name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Child_EDT_name"
+                android:layout_width="190dp"
+                android:layout_height="60dp"
+                android:ems="10" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <ImageView
+
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:src="@drawable/id" />
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="190dp"
+            android:layout_height="60dp"
+            android:hint="Child ID">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Child_EDT_childID"
+                android:layout_width="190dp"
+                android:layout_height="60dp"
+                android:inputType="number"
+                android:ems="10" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:src="@drawable/phone_call" />
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="190dp"
+            android:layout_height="60dp"
+            android:hint="Another Parent Phone"
+
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Child_EDT_Phone2"
+                android:layout_width="190dp"
+                android:layout_height="60dp"
+                android:inputType="phone"
+                android:ems="10" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:src="@drawable/calendar" />
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="190dp"
+            android:layout_height="60dp"
+            android:hint="birthday date: xx/xx/xx"
+
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Child_EDT_BirthDay"
+                android:layout_width="190dp"
+                android:layout_height="60dp"
+                android:inputType="date"
+                android:ems="10" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+
+
+
+
+    <Spinner
+        android:id="@+id/Child_spn_Garden"
+                android:layout_width="190dp"
+                android:layout_height="60dp"
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/Child_BTN_continue"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="center_horizontal"
+        android:text="continue"
+        app:cornerRadius="50dp"
+        android:textColor="#CF06F1"
+        app:strokeColor="#CF06F1" />
+
+
+</LinearLayout>
