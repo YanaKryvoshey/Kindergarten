@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/addTeacher_IMG_backround"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.3"
+        android:scaleType="centerCrop"/>
+
+<LinearLayout
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -32,10 +44,41 @@
                 android:id="@+id/addTeacher_EDT_name"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
+                android:background="@color/white"
                 android:ems="10" />
 
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <ImageView
+
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:src="@drawable/toys" />
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:hint="ID">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addTeacher_EDT_ID"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:inputType="number"
+                android:background="@color/white"
+                android:ems="10" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
 
 
     <LinearLayout
@@ -62,6 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:inputType="phone"
+                android:background="@color/white"
                 android:ems="10" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -89,17 +133,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:inputType="number"
+                android:background="@color/white"
                 android:ems="10" />
 
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
-
+    <TextView
+        android:id="@+id/Teacher_TXT_Garden"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="Choose your garden:"/>
 
             <Spinner
                 android:id="@+id/Teacher_SPN_Garden"
                 android:layout_width="190dp"
                 android:layout_height="60dp"
+                android:background="@color/white"
                 android:spinnerMode="dropdown"
                 android:prompt = "@string/app_name"/>
     <LinearLayout
@@ -138,7 +189,9 @@
         android:layout_gravity="center_horizontal"
         android:text="continue"
         app:cornerRadius="50dp"
+        android:background="@color/white"
         android:textColor="#CF06F1"
         app:strokeColor="#CF06F1" />
 
 </LinearLayout>
+</RelativeLayout>

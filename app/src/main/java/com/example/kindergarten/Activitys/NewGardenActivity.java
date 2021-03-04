@@ -8,22 +8,26 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.kindergarten.Objects.Child;
 import com.example.kindergarten.Objects.Garden;
 import com.example.kindergarten.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -40,20 +44,16 @@ public class NewGardenActivity extends AppCompatActivity {
     // request code
     private static final int PICK_IMAGE_REQUEST = 1;
 
-    // Uri indicates, where the image will be picked from
-    private Uri filePathUri;
-
+ImageView garden_IMG_backround;
     Button garden_BTN_continue;
+    Boolean update = false;
     Button garden_BTN_Choose;
     Button garden_BTN_Upload;
     ImageView garden_imgView;
     String imageURL = "";
     ArrayList<String> allPic = new ArrayList<>();
-
+    ArrayList<Garden> allGardens = new ArrayList<>();
     TextInputEditText garden_EDT_name, garden_EDT_Phone, garden_EDT_Max, garden_EDT_Children, garden_EDT_Teachers;
-
-    TextInputLayout garden_EDT_LayoutChildren, garden_EDT_LayoutMax, garden_EDT_LayoutTeachers, garden_EDT_LayoutPhone, garden_EDT_Layoutname;
-
     // instance for firebase storage and StorageReference
     private Uri mImageUri;
     private StorageReference mStorageRef;
@@ -67,7 +67,8 @@ public class NewGardenActivity extends AppCompatActivity {
         findViews();
         double latitude = getIntent().getDoubleExtra(LATITUDE, -1);
         double longitude = getIntent().getDoubleExtra(LONGITUDE, -1);
-
+        Glide.with(this).load(R.drawable.new_user).centerCrop().into(garden_IMG_backround);
+        getAllGardens();
         // get the Firebase  storage reference
         mStorageRef = FirebaseStorage.getInstance().getReference("picture");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("picture");
@@ -77,9 +78,32 @@ public class NewGardenActivity extends AppCompatActivity {
         BTNupload();
 
     }
+//get from the Database all the gardens
+    private void getAllGardens() {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("gardens");
+        usersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        Garden name = ds.getValue(Garden.class);
+                        allGardens.add(name);
+                        Log.d("pttt", "New Child Activity get child" + name.getName());
+                    }
 
+                } catch (Exception ex) {
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.d("pttt", "Failed to read value.", error.toException());
+            }
+        });
+    }
+    //  pressing on upload
     private void BTNupload() {
-        // on pressing btnUpload uploadImage() is called
         garden_BTN_Upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -93,18 +117,17 @@ public class NewGardenActivity extends AppCompatActivity {
             }
         });
     }
-
+    //  pressing on choose
     private void BTNchoose() {
         garden_BTN_Choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-
                 openFileChooser();
             }
         });
     }
-
+    //  pressing on continue
     private void BTNcontinue(double latitude, double longitude) {
         garden_BTN_continue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,8 +186,7 @@ public class NewGardenActivity extends AppCompatActivity {
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                            // mProgressBar.setProgress((int) progress);
+                            Toast.makeText(NewGardenActivity.this, "Wait for the upload to complete", Toast.LENGTH_LONG).show();
                         }
                     });
         } else {
@@ -188,13 +210,23 @@ public class NewGardenActivity extends AppCompatActivity {
 
 
     private void saveNewGarden(double latitude, double longitude) {
-        Garden garden = new Garden(garden_EDT_name.getText().toString(), garden_EDT_Phone.getText().toString(), latitude, longitude, garden_EDT_Teachers.getText().toString(), garden_EDT_Max.getText().toString(), garden_EDT_Children.getText().toString(),allPic);
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("gardens");
-        myRef.child(garden_EDT_name.getText().toString()).setValue(garden);
-        finish();
-
+        if (checkName()){
+            Garden garden = new Garden(garden_EDT_name.getText().toString(), garden_EDT_Phone.getText().toString(), latitude, longitude, garden_EDT_Teachers.getText().toString(), garden_EDT_Max.getText().toString(), garden_EDT_Children.getText().toString(),allPic);
+            DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("gardens");
+            myRef.child(garden_EDT_name.getText().toString()).setValue(garden);
+            finish();
+        }
+    }
+//check that there is no garden with the same name
+    private boolean checkName() {
+        for (int i=0;i<allGardens.size();i++){
+            if (allGardens.get(i).getName().equals(garden_EDT_name.getText().toString())){
+                Toast.makeText(NewGardenActivity.this, "garden name existing in the system", Toast.LENGTH_SHORT).show();
+                garden_EDT_name.getText().clear();
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -205,13 +237,7 @@ public class NewGardenActivity extends AppCompatActivity {
         garden_EDT_Max = findViewById(R.id.garden_EDT_Max);
         garden_EDT_Children = findViewById(R.id.garden_EDT_Children);
         garden_EDT_Teachers = findViewById(R.id.garden_EDT_Teachers);
-
-        garden_EDT_LayoutChildren = findViewById(R.id.garden_EDT_LayoutChildren);
-        garden_EDT_LayoutMax = findViewById(R.id.garden_EDT_LayoutMax);
-        garden_EDT_LayoutTeachers = findViewById(R.id.garden_EDT_LayoutTeachers);
-        garden_EDT_LayoutPhone = findViewById(R.id.garden_EDT_LayoutPhone);
-        garden_EDT_Layoutname = findViewById(R.id.garden_EDT_Layoutname);
-
+        garden_IMG_backround = findViewById(R.id.garden_IMG_backround);
         garden_BTN_Choose = findViewById(R.id.garden_BTN_Choose);
         garden_BTN_Upload = findViewById(R.id.garden_BTN_Upload);
         garden_imgView = findViewById(R.id.garden_imgView);

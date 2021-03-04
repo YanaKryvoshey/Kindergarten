@@ -32,7 +32,7 @@
 
     <Button
         android:id="@+id/main_BTM_Kindergarten"
-        android:layout_width="150dp"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:text="add new Kindergarten"
         android:textColor="@color/black"

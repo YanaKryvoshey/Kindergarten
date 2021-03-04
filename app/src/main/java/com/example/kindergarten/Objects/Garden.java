@@ -13,6 +13,7 @@ public class Garden {
         private int numOfChildren = 0;
         private int numberAvailablePlaces = 0;
         private ArrayList<String> allpic = new ArrayList<>();
+        private ArrayList<String> allChildNames = new ArrayList<>();
 
 
         public Garden(){}
@@ -30,6 +31,26 @@ public class Garden {
                 this.allpic = allpic;
         }
 
+        public Garden(String name, String phoneNum, double latitude, double longitude, int numberOfTeachers, int maxChildren, int numOfChildren, int numberAvailablePlaces, ArrayList<String> allpic, ArrayList<String> allChildNames) {
+                this.name = name;
+                this.phoneNum = phoneNum;
+                this.latitude = latitude;
+                this.longitude = longitude;
+                this.numberOfTeachers = numberOfTeachers;
+                this.maxChildren = maxChildren;
+                this.numOfChildren = numOfChildren;
+                this.numberAvailablePlaces = numberAvailablePlaces;
+                this.allpic = allpic;
+                this.allChildNames = allChildNames;
+        }
+
+        public ArrayList<String> getAllChildNames() {
+                return allChildNames;
+        }
+
+        public void setAllChildNames(ArrayList<String> allChildNames) {
+                this.allChildNames = allChildNames;
+        }
 
         public String getName() {
                 return name;

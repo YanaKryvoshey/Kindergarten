@@ -14,9 +14,9 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/or_BTN_Parent"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Parent"
+        android:text="new Parent"
         android:textSize="20dp"
 
         app:strokeColor="@color/white"
@@ -25,9 +25,19 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/or_BTN_Teacher"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Teacher"
+        android:text="new Teacher"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_margin="30dp"
+        app:strokeColor="@color/white" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/or_BTN_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User exist"
         android:textSize="20dp"
         android:textStyle="bold"
         android:layout_margin="30dp"

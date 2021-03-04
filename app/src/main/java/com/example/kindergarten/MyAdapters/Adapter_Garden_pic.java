@@ -21,7 +21,7 @@ public class Adapter_Garden_pic extends RecyclerView.Adapter<Adapter_Garden_pic.
 
     private ArrayList<String> mData;
     private Context mInflater;
-    private Adapter_Garden_pic.ItemClickListener mClickListener;
+    private ItemClickListener mClickListener;
 
     // data is passed into the constructor
     public Adapter_Garden_pic(Context context, ArrayList<String> data) {

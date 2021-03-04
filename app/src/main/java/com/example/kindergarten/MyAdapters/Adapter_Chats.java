@@ -5,25 +5,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.kindergarten.Objects.Teacher;
 import com.example.kindergarten.R;
 
 import java.util.ArrayList;
 
-public class Adapter_Teachers_Post extends RecyclerView.Adapter<Adapter_Teachers_Post.MyViewHolder> {
+public class Adapter_Chats extends RecyclerView.Adapter<Adapter_Chats.MyViewHolder> {
 
-    private ArrayList<Teacher> mData;
+    private ArrayList<String> mData;
     private Context mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    public Adapter_Teachers_Post(Context context, ArrayList<Teacher> data) {
+    public Adapter_Chats(Context context, ArrayList<String> data) {
         this.mInflater = context;
         this.mData = data;
     }
@@ -31,20 +32,15 @@ public class Adapter_Teachers_Post extends RecyclerView.Adapter<Adapter_Teachers
     // inflates the row layout from xml when needed
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mInflater).inflate(R.layout.teacher_list, parent, false);
-        return new MyViewHolder(view);
+        View view = LayoutInflater.from(mInflater).inflate(R.layout.chats_list, parent, false);
+        return new Adapter_Chats.MyViewHolder(view);
     }
-
     // binds the data to the TextView in each row
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Log.d("pttt", "Binding " + position);
-        Teacher post = mData.get(position);
-        holder.post_LBL_Name.setText("Name: " + post.getName());
-        holder.post_LBL_experience.setText("Years of experience: " + "" + post.getExperienceYears());
-        holder.post_LBL_age.setText("Age: " + " " +post.getAge());
-        Glide.with(mInflater).load(post.getImageURL()).into(holder.post_IMG_image);
-
+        String name = mData.get(position);
+        holder.ChatsList_LBL_Name.setText(name);
 
     }
 
@@ -56,7 +52,7 @@ public class Adapter_Teachers_Post extends RecyclerView.Adapter<Adapter_Teachers
 
 
     // allows clicks events to be caught
-    public void setClickListener(ItemClickListener itemClickListener) {
+    public void setClickListener(Adapter_Chats.ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
@@ -69,18 +65,13 @@ public class Adapter_Teachers_Post extends RecyclerView.Adapter<Adapter_Teachers
     // stores and recycles views as they are scrolled off screen
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView post_IMG_image;
-        TextView post_LBL_age;
-        TextView post_LBL_experience;
-        TextView post_LBL_Name;
+        TextView ChatsList_LBL_Name;
+
 
 
         MyViewHolder(View itemView) {
             super(itemView);
-            post_IMG_image = itemView.findViewById(R.id.post_IMG_image);
-            post_LBL_age = itemView.findViewById(R.id.post_LBL_age);
-            post_LBL_experience = itemView.findViewById(R.id.post_LBL_experience);
-            post_LBL_Name = itemView.findViewById(R.id.post_LBL_Name);
+            ChatsList_LBL_Name = itemView.findViewById(R.id.ChatsList_LBL_Name);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -92,3 +83,4 @@ public class Adapter_Teachers_Post extends RecyclerView.Adapter<Adapter_Teachers
         }
     }
 }
+

@@ -1,14 +1,17 @@
 package com.example.kindergarten.Objects;
 
+import java.util.ArrayList;
+
 public class Child {
 
     private String uid = "";
     private String name = "";
-    private int ID = 0;
+    private String ID = "";
     private String phoneNum1 = "";
     private String phoneNum2 = "";
     private String birthDay = "";
     private String gardenName = "";
+    private ArrayList<String> history = new ArrayList<>();
 
     public Child() {
     }
@@ -16,11 +19,39 @@ public class Child {
     public Child(String uid, String name, String ID, String phoneNum1, String phoneNum2, String birthDay, String gardenName) {
         this.uid = uid;
         this.name = name;
-        this.ID =  Integer.parseInt(ID);
+        this.ID =  ID;
         this.phoneNum1 = phoneNum1;
         this.phoneNum2 = phoneNum2;
         this.birthDay = birthDay;
         this.gardenName = gardenName;
+
+    }
+
+    public Child(String uid, String name, String ID, String phoneNum1, String phoneNum2, String birthDay, String gardenName, ArrayList<String> history) {
+        this.uid = uid;
+        this.name = name;
+        this.ID = ID;
+        this.phoneNum1 = phoneNum1;
+        this.phoneNum2 = phoneNum2;
+        this.birthDay = birthDay;
+        this.gardenName = gardenName;
+        this.history = history;
+    }
+
+    public ArrayList<String> getChats() {
+        return history;
+    }
+
+    public void setChats(ArrayList<String> chats) {
+        this.history = chats;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String getUid() {
@@ -47,13 +78,6 @@ public class Child {
         return name;
     }
 
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
 
     public String getBirthDay() {
         return birthDay;

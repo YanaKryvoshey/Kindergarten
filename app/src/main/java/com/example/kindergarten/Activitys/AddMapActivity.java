@@ -25,7 +25,7 @@ public class AddMapActivity extends AppCompatActivity {
 
         Fragment fragment = new Fragment_Add_Map();
         getSupportFragmentManager().beginTransaction().replace(R.id.main_LAY_Map, fragment).commit();
-
+//open add map activity
         Map_BTM_Menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

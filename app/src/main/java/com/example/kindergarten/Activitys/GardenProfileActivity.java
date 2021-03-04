@@ -55,7 +55,7 @@ public class GardenProfileActivity extends AppCompatActivity {
         generateGardenPicPosts(name);
 
     }
-
+    //make the posts for garden picturs
     private void generateGardenPicPosts(String name) {
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -76,17 +76,15 @@ public class GardenProfileActivity extends AppCompatActivity {
                 }
                 adapter_garden_pic = new Adapter_Garden_pic(GardenProfileActivity.this, picUrl);
                 gardenPicRecyclerView.setAdapter(adapter_garden_pic);
-                //mProgressCircle.setVisibility(View.INVISIBLE);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(GardenProfileActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                //mProgressCircle.setVisibility(View.INVISIBLE);
             }
         });
     }
 
-
+//make the posts for teachers
     private void generateTeacherPosts(String name) {
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -146,8 +144,9 @@ public class GardenProfileActivity extends AppCompatActivity {
         });
     }
 
+    //post the garden details
     private void fillTheTextView(Garden garden) {
-        profile_TXT_name.append(garden.getName());
+        profile_TXT_name.setText(garden.getName());
         profile_TXT_phone.append("" + garden.getPhoneNum());
         profile_TXT_numberOfTeachers.append("" + garden.getNumberOfTeachers());
         profile_TXT_maxChildren.append("" + garden.getMaxChildren());

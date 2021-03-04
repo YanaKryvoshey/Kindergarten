@@ -16,8 +16,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.kindergarten.Objects.Garden;
 import com.example.kindergarten.Objects.Teacher;
 import com.example.kindergarten.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,8 +29,11 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -45,14 +51,16 @@ public class NewTeacherActivity extends AppCompatActivity implements AdapterView
 
     // Uri indicates, where the image will be picked from
     private Uri filePathUri;
-
+ImageView addTeacher_IMG_backround;
 
     MaterialButton addTeacher_BTN_continue;
     TextInputEditText addTeacher_EDT_name;
     TextInputEditText addTeacher_EDT_experience;
     TextInputEditText addTeacher_EDT_age;
+    TextInputEditText addTeacher_EDT_ID;
     ArrayList<String> spinnerList = new ArrayList<>();
-
+    ArrayList<Teacher> allTeachers = new ArrayList<>();
+TextView Teacher_TXT_Garden;
     Button btnChoose;
     Button btnUpload;
     ImageView imgView;
@@ -71,27 +79,48 @@ public class NewTeacherActivity extends AppCompatActivity implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_teacher);
-        Bundle extra = getIntent().getBundleExtra("extra");
-        spinnerList = (ArrayList<String>) extra.getSerializable("objects");
         findViews();
         intiViews();
+        Bundle extra = getIntent().getBundleExtra("extra");
+        spinnerList = (ArrayList<String>) extra.getSerializable("objects");
+        Glide.with(this).load(R.drawable.new_user).centerCrop().into(addTeacher_IMG_backround);
         fillTheSpinner();
-
-
+        getAllTeachers();
         // get the Firebase  storage reference
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
-        // on pressing btnSelect SelectImage() is called
-        btnChoose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
 
-                openFileChooser();
+        BTNchoose();
+        BTNupload();
+
+    }
+    //get from the Database all the Teachers
+    private void getAllTeachers() {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("gardens");
+        usersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        Teacher name = ds.getValue(Teacher.class);
+                        allTeachers.add(name);
+                        Log.d("pttt", "New Child Activity get child" + name.getName());
+                    }
+
+                } catch (Exception ex) {
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.d("pttt", "Failed to read value.", error.toException());
             }
         });
+    }
 
-        // on pressing btnUpload uploadImage() is called
+    //  pressing on upload
+    private void BTNupload() {
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -103,6 +132,17 @@ public class NewTeacherActivity extends AppCompatActivity implements AdapterView
                     uploadFile();
                 }
 
+            }
+        });
+    }
+    //  pressing on choose
+    private void BTNchoose() {
+        btnChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+                openFileChooser();
             }
         });
     }
@@ -164,8 +204,7 @@ public class NewTeacherActivity extends AppCompatActivity implements AdapterView
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                           // mProgressBar.setProgress((int) progress);
+                            Toast.makeText(NewTeacherActivity.this, "Wait for the upload to complete", Toast.LENGTH_LONG).show();
                         }
                     });
         } else {
@@ -211,30 +250,39 @@ public class NewTeacherActivity extends AppCompatActivity implements AdapterView
         });
     }
 
-    private void seeMap() {
-        Intent myIntent2 = new Intent(NewTeacherActivity.this, SeeMapActivity.class);
-        startActivity(myIntent2);
-        finish();
-    }
-
     private void findViews() {
         addTeacher_BTN_continue = findViewById(R.id.addTeacher_BTN_continue);
+        addTeacher_EDT_ID = findViewById(R.id.addTeacher_EDT_ID);
         addTeacher_EDT_name = findViewById(R.id.addTeacher_EDT_name);
         addTeacher_EDT_experience = findViewById(R.id.addTeacher_EDT_experience);
         addTeacher_EDT_age = findViewById(R.id.addTeacher_EDT_age);
         btnChoose = findViewById(R.id.btnChoose);
         btnUpload = findViewById(R.id.btnUpload);
         imgView = findViewById(R.id.imgView);
+        Teacher_TXT_Garden = findViewById(R.id.Teacher_TXT_Garden);
+        addTeacher_IMG_backround= findViewById(R.id.addTeacher_IMG_backround);
     }
 
     private void addTeacher() {
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        Teacher teacher = new Teacher(firebaseUser.getUid(),addTeacher_EDT_name.getText().toString(), firebaseUser.getPhoneNumber(), addTeacher_EDT_experience.getText().toString(), gardenName, addTeacher_EDT_age.getText().toString(),imageURL);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Teachers");
-        myRef.child(firebaseUser.getUid()).setValue(teacher);
-        finish();
+        if (checkID()){
+            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            Teacher teacher = new Teacher(firebaseUser.getUid(),addTeacher_EDT_name.getText().toString(),addTeacher_EDT_ID.getText().toString(), firebaseUser.getPhoneNumber(), addTeacher_EDT_experience.getText().toString(), gardenName, addTeacher_EDT_age.getText().toString(),imageURL);
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("Teachers");
+            myRef.child(firebaseUser.getUid()).setValue(teacher);
+            finish();
+        }
 
-
+    }
+    //check that system does not have this Teacher
+    private boolean checkID() {
+        for (int i=0;i<allTeachers.size();i++){
+            if (allTeachers.get(i).getID().equals(addTeacher_EDT_ID.getText().toString())){
+                Toast.makeText(NewTeacherActivity.this, "user existing in the system", Toast.LENGTH_SHORT).show();
+                addTeacher_EDT_ID.getText().clear();
+                return false;
+            }
+        }
+        return true;
     }
 }

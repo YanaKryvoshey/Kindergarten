@@ -20,17 +20,15 @@
         android:padding="12dp"
         >
 
-        <ImageView
-            android:id="@+id/gardenpost_IMG_image"
-            android:layout_width="350dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="4dp"
-            android:adjustViewBounds="true"
-            android:background="#EFA1F4" />
 
-
-
-
+        <TextView
+            android:id="@+id/ChatsList_LBL_Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name: "
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
 

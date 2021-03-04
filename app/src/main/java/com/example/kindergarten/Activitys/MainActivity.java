@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.kindergarten.Objects.Garden;
 import com.example.kindergarten.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -35,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private Button main_BTM_login_LogOut;
     private Button main_BTM_Messages;
     private ImageView main_IMG_backround;
+    boolean teacher = false;
+    String gardenName = "";
+    String userUid = "";
+    ArrayList<String> objects = new ArrayList<>();
 
     FusedLocationProviderClient fusedLocationProviderClient;
 
@@ -48,21 +51,130 @@ public class MainActivity extends AppCompatActivity {
         loginlogOut();
         KindergardenRegester();
         messages();
-
+        findTeachersGardenName();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLsatLocation();
     }
 
+
+
+
+    //press the message Button
     private void messages() {
         main_BTM_Messages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent1 = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(myIntent1);
+
+                if(FirebaseAuth.getInstance().getCurrentUser() == null){
+                    //if the user not log in
+                    Toast.makeText(MainActivity.this, "You need to Log in first", Toast.LENGTH_SHORT).show();
+                }
+                else {
+
+                    if(teacher == true){
+                        Bundle extra = new Bundle();
+                        extra.putSerializable("objects", objects);
+                        Intent myIntent = new Intent(MainActivity.this, SendMessageActivity.class);
+                        myIntent.putExtra("extra", extra);
+                        myIntent.putExtra(SendMessageActivity.USERUID, userUid);
+                        startActivity(myIntent);
+
+                    }else {
+                        Intent myIntent4 = new Intent(MainActivity.this, ShowMessageActivity.class);
+                        myIntent4.putExtra(ShowMessageActivity.USERUID, userUid);
+                        startActivity(myIntent4);
+                    }
+
+                }
+
             }
         });
     }
+//if the user is teacher i find his detels
+    private void findTeachersGardenName() {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Teachers");
+        usersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        if (ds.getKey().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                            gardenName = ds.child("workPlace").getValue(String.class);
+                            teacher = true;
+                            userUid = ds.getKey();
+                            Log.d("pttt", "MainActivity teacher uid: " + userUid);
+                            getallChildrenNames(gardenName);
+                        }
+                    }
 
+                } catch (Exception ex) {
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.d("pttt", "Failed to read value.", error.toException());
+            }
+        });
+        if (teacher == false){
+            findChildGarden();
+        }
+    }
+//if the user is children i find it
+    private void findChildGarden() {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Children");
+        usersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        if (ds.getKey().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                            gardenName = ds.child("gardenName").getValue(String.class);
+                            userUid = ds.getKey();
+                            Log.d("pttt", "MainActivity child uid: " + userUid);
+                        }
+                    }
+
+                } catch (Exception ex) {
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.d("pttt", "Failed to read value.", error.toException());
+            }
+
+        });
+    }
+
+//if the user is teacher i find all the children names that i can sent them message
+    private void getallChildrenNames(String gardenName) {
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Children");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        if (ds.child("gardenName").getValue(String.class).equals(gardenName)){
+                            String childname = ds.child("name").getValue(String.class);
+                            objects.add(childname);
+                            Log.d("pttt", "MainActivity child Name is: " + childname);
+                        }
+                    }
+                } catch (Exception ex) {
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.d("pttt", "Failed to read value.", error.toException());
+            }
+        });
+
+    }
+//press the login/logOut Button
     private void loginlogOut() {
         main_BTM_login_LogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +187,8 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     //log out
                     FirebaseAuth.getInstance().signOut();
+                    Toast.makeText(MainActivity.this, "log out", Toast.LENGTH_SHORT).show();
+                    ezit();
                 }
 
             }
@@ -82,6 +196,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void ezit() {
+        finish();
+
+    }
+
+    //press the add new Kindergarden Button
     private void KindergardenRegester() {
         main_BTM_Kindergarten.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    //press the map Button
     void seeMap(){
         main_BTM_Map.setOnClickListener(new View.OnClickListener() {
             @Override

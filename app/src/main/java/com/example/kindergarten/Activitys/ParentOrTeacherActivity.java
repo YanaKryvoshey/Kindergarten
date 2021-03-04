@@ -21,6 +21,7 @@ public class ParentOrTeacherActivity extends AppCompatActivity {
 
     MaterialButton or_BTN_Parent ;
     MaterialButton or_BTN_Teacher;
+    MaterialButton or_BTN_menu;
     ArrayList<String> objects = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +32,23 @@ public class ParentOrTeacherActivity extends AppCompatActivity {
         objects = getallNames();
         parentActivity();
         TeacherActivity();
+        existUser();
     }
 
+    private void existUser() {
+        or_BTN_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent1 = new Intent(ParentOrTeacherActivity.this, MainActivity.class);
+                startActivity(myIntent1);
+                finish();
+            }
+        });
+
+    }
+
+
+    //get all the garden name from the firebase
     private ArrayList<String> getallNames() {
         ArrayList<String> list = new ArrayList<String>();
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("gardens");
@@ -58,7 +74,7 @@ public class ParentOrTeacherActivity extends AppCompatActivity {
         });
         return list;
     }
-
+//press parent
     private void parentActivity() {
         or_BTN_Parent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +88,7 @@ public class ParentOrTeacherActivity extends AppCompatActivity {
             }
         });
     }
-
+//press teacher
     private void TeacherActivity() {
         or_BTN_Teacher.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,5 +108,6 @@ public class ParentOrTeacherActivity extends AppCompatActivity {
     private void findViews() {
         or_BTN_Parent = findViewById(R.id.or_BTN_Parent );
         or_BTN_Teacher = findViewById(R.id.or_BTN_Teacher);
+        or_BTN_menu = findViewById(R.id.or_BTN_menu);
     }
 }
