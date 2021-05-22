@@ -9,3 +9,8 @@ In this app I used Fairbase to save all the kindergartens, all the teachers and 
 in addition I also saved pictures of the kindergarten teachers and kindergartens pictures in the Storage and the link to the pictures i save in Realtime Database.
 
 <img src = "app/src/main/res/drawable/gerden_profil_pic.jpeg" width = "150">
+<img src = "app/src/main/res/drawable/map_pic.jpeg" width = "150">
+<img src = "app/src/main/res/drawable/menu_pib.jpeg" width = "150">
+<img src = "app/src/main/res/drawable/send_message_pic.jpeg" width = "150">
+<img src = "app/src/main/res/drawable/teacher_profil_pic.jpeg" width = "150">
+
